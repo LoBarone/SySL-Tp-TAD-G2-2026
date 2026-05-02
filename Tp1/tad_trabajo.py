@@ -2,7 +2,7 @@ from datetime import time, timedelta
 
 def crearTrabajo():
 # id, nombre, formato, paginas, prioridad, fecha y hora
-    return[0,"","",0,"","",""]
+    return[0, "", "", 0, "", "", ""] 
 
 def modID(trabajo,id):
     trabajo[0]=id
