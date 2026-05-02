@@ -1,34 +1,33 @@
-from datetime import time, timedelta
+from datetime import date, time
 
 def crearTrabajo():
-#Crea un tipo abstracto de dato tipo trabajo
-    return[0,"","",0,"","",""]#id,nombre,formato,paginas,prioridad, fecha y hs
+# id, nombre, formato, paginas, prioridad, fecha y hora
+    return[0, "", "", 0, "", date(0000, 00, 00),time(00, 00)] 
 
-def modID(trabajo,id):
-#
+def modID(trabajo, id):
     trabajo[0]=id
 
 def modNombre(trabajo, nombre):
-    trabajo[1]=nombre
+    trabajo[1] = nombre
 
 def modFormato(trabajo, formato):
-    trabajo[2]=formato
+    trabajo[2] = formato
 
 def modPaginas(trabajo, paginas):
     trabajo[3]=paginas
 
 def modPrioridad(trabajo, prioridad):
-    trabajo[4]=prioridad
+    trabajo[4] = prioridad
 
-def modFecha(trabajo, fecha):
-    trabajo[5]=fecha
+def modFecha(trabajo, año, mes, dia):
+    trabajo[5] = date(año, mes, dia)
 
-def modHora(trabajo, hora):
-    trabajo[6] = hora
+def modHora(trabajo, hora, minuto):
+    trabajo[6] = time(hora, minuto)
 
 
-def cargarTrabajo(trabajo,id,nombre,formato,paginas,prioridad,fecha,hora):
-    modID(trabajo,id)
+def cargarTrabajo(trabajo, id, nombre, formato, paginas, prioridad, fecha, hora):
+    modID(trabajo, id)
     modNombre(trabajo, nombre)
     modFormato(trabajo, formato)
     modPaginas(trabajo, paginas)
