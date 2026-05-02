@@ -1,18 +1,26 @@
 def crearTrabajo():
+#Crea un tipo abstracto de dato tipo trabajo
     return[0,"","",0,"","",""]#id,nombre,formato,paginas,prioridad, fecha y hs
 
 def modID(trabajo,id):
+#
     trabajo[0]=id
+
 def modNombre(trabajo,nombre):
     trabajo[1]=nombre
+
 def modFormato(trabajo,formato):
     trabajo[2]=formato
+
 def modPaginas(trabajo,paginas):
     trabajo[3]=paginas
+
 def modPrioridad(trabajo,prioridad):
     trabajo[4]=prioridad
+
 def modFecha(trabajo,fecha):
     trabajo[5]=fecha
+    
 def modHora(trabajo,hora):
     trabajo[6]=hora
 
