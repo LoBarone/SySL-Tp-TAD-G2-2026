@@ -45,22 +45,28 @@ def verNombre(trabajo):
     return trabajo[1]
 
 def verFormato(trabajo):
+#Retorna el tipo de formato de impresion
     return trabajo[2]
 
 def verPaginas(trabajo):
+#Retorna la cantidad de paginas
     return trabajo[3]
 
 def verPrioridad(trabajo):
+#Retorna la prioridad del trabajo
     return trabajo[4]
 
 def verFecha(trabajo):
+#Retorna la fecha del trabajo
     return trabajo[5]
 
 def verHora(trabajo):
+#Retorna la hora del trabajo
     return trabajo[6]
 
 def asignarTrabajo(t1,t2):
 <<<<<<< HEAD
+#Asigna los datos de trabajo1 al trabajo2
     modID(t2,verId(t1))
     modNombre(t2,verNombre(t1))
     modFormato(t2,verFormato(t1))
@@ -77,4 +83,3 @@ def asignarTrabajo(t1,t2):
     t2[5]=t1[5]
     t2[6]=t1[6]
 
->>>>>>> 796df325a9df40b3612ade1e002db9b6d9956c1d
