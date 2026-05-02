@@ -1,3 +1,5 @@
+from datetime import time, timedelta
+
 def crearTrabajo():
 #Crea un tipo abstracto de dato tipo trabajo
     return[0,"","",0,"","",""]#id,nombre,formato,paginas,prioridad, fecha y hs
@@ -6,45 +8,53 @@ def modID(trabajo,id):
 #
     trabajo[0]=id
 
-def modNombre(trabajo,nombre):
+def modNombre(trabajo, nombre):
     trabajo[1]=nombre
 
-def modFormato(trabajo,formato):
+def modFormato(trabajo, formato):
     trabajo[2]=formato
 
-def modPaginas(trabajo,paginas):
+def modPaginas(trabajo, paginas):
     trabajo[3]=paginas
 
-def modPrioridad(trabajo,prioridad):
+def modPrioridad(trabajo, prioridad):
     trabajo[4]=prioridad
 
-def modFecha(trabajo,fecha):
+def modFecha(trabajo, fecha):
     trabajo[5]=fecha
 
-def modHora(trabajo,hora):
-    trabajo[6]=hora
+def modHora(trabajo, hora):
+    trabajo[6] = hora
+
 
 def cargarTrabajo(trabajo,id,nombre,formato,paginas,prioridad,fecha,hora):
     modID(trabajo,id)
-    modNombre(trabajo,nombre)
-    modFormato(trabajo,formato)
-    modPaginas(trabajo,paginas)
-    modPrioridad(trabajo,prioridad)
-    modFecha(trabajo,fecha)
-    modHora(trabajo,hora)
+    modNombre(trabajo, nombre)
+    modFormato(trabajo, formato)
+    modPaginas(trabajo, paginas)
+    modPrioridad(trabajo, prioridad)
+    modFecha(trabajo, fecha)
+    modHora(trabajo, hora)
+
 
 def verId(trabajo):
     return trabajo[0]
+
 def verNombre(trabajo):
     return trabajo[1]
+
 def verFormato(trabajo):
     return trabajo[2]
+
 def verPaginas(trabajo):
     return trabajo[3]
+
 def verPrioridad(trabajo):
     return trabajo[4]
+
 def verFecha(trabajo):
     return trabajo[5]
+
 def verHora(trabajo):
     return trabajo[6]
 
