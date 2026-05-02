@@ -1,39 +1,67 @@
 from datetime import date, time
 
 def crearTrabajo():
-# id, nombre, formato, paginas, prioridad, fecha y hora
+# Crea un TAD trabajo con los siguientes campos: id, nombre, formato, paginas, prioridad, fecha y hora
     return[0, "", "", 0, "", date(0000, 00, 00),time(00, 00)] 
 
 def modID(trabajo, id):
-    trabajo[0]=id
+# Modifica el ID 
+    trabajo[0] = id
 
 def modNombre(trabajo, nombre):
+# Modifica el nombre del trabajo
     trabajo[1] = nombre
 
 def modFormato(trabajo, formato):
+# Modifica el formato del trabajo
     trabajo[2] = formato
 
 def modPaginas(trabajo, paginas):
-    trabajo[3]=paginas
+# Modifica el numero de paginas
+    trabajo[3] = paginas
 
 def modPrioridad(trabajo, prioridad):
+# Modifica la prioridad
     trabajo[4] = prioridad
 
 def modFecha(trabajo, año, mes, dia):
+# Modifica la fecha
     trabajo[5] = date(año, mes, dia)
 
-def modHora(trabajo, hora, minuto):
+def modAño(trabajo, año):
+# Modifica solo el año
+    trabajo[5] = trabajo[5].replace(year=año)
+
+def modMes(trabajo, mes):
+# Modifica solo el mes
+    trabajo[5] = trabajo[5].replace(month=mes)
+
+def modDia(trabajo, dia):
+# Modifica solo el dia
+    trabajo[5] = trabajo[5].replace(day=dia)
+
+def modHorario(trabajo, hora, minuto):
+# Modifica el horario
     trabajo[6] = time(hora, minuto)
 
+def modHora(trabajo, hora):
+# Modifica solo la hora
+    trabajo[6] = trabajo[6].replace(hour=hora)
 
-def cargarTrabajo(trabajo, id, nombre, formato, paginas, prioridad, fecha, hora):
+def modMinute(trabajo, minuto):
+# Modifica solo el minuto
+    trabajo[6] = trabajo[6].replace(minute=minuto)
+
+
+def cargarTrabajo(trabajo, id, nombre, formato, paginas, prioridad, año, mes, dia, hora, minuto):
+# Carga todos los campos de un TAD trabajo.
     modID(trabajo, id)
     modNombre(trabajo, nombre)
     modFormato(trabajo, formato)
     modPaginas(trabajo, paginas)
     modPrioridad(trabajo, prioridad)
-    modFecha(trabajo, fecha)
-    modHora(trabajo, hora)
+    modFecha(trabajo, año, mes, dia)
+    modHorario(trabajo, hora, minuto)
 
 
 def verId(trabajo):
@@ -74,12 +102,3 @@ def asignarTrabajo(t1,t2):
     modPrioridad(t2,verPrioridad(t1))
     modFecha(t2,verFecha(t1))
     modHora(t2,verHora(t1))
-=======
-    t2[0]=t1[0]
-    t2[1]=t1[1]
-    t2[2]=t1[2]
-    t2[3]=t1[3]
-    t2[4]=t1[4]
-    t2[5]=t1[5]
-    t2[6]=t1[6]
-
