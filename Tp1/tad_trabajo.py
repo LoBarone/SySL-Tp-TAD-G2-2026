@@ -20,7 +20,7 @@ def modPrioridad(trabajo,prioridad):
 
 def modFecha(trabajo,fecha):
     trabajo[5]=fecha
-    
+
 def modHora(trabajo,hora):
     trabajo[6]=hora
 
@@ -49,10 +49,11 @@ def verHora(trabajo):
     return trabajo[6]
 
 def asignarTrabajo(t1,t2):
-    t1[0]=t2[0]
-    t1[1]=t2[1]
-    t1[2]=t2[2]
-    t1[3]=t2[3]
-    t1[4]=t2[4]
-    t1[5]=t2[5]
-    t1[6]=t2[6]
+    t2[0]=t1[0]
+    t2[1]=t1[1]
+    t2[2]=t1[2]
+    t2[3]=t1[3]
+    t2[4]=t1[4]
+    t2[5]=t1[5]
+    t2[6]=t1[6]
+
