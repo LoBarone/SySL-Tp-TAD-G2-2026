@@ -93,7 +93,6 @@ def verHora(trabajo):
     return trabajo[6]
 
 def asignarTrabajo(t1,t2):
-<<<<<<< HEAD
 #Asigna los datos de trabajo1 al trabajo2
     modID(t2,verId(t1))
     modNombre(t2,verNombre(t1))
