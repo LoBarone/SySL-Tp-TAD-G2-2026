@@ -41,10 +41,10 @@ def verHora(trabajo):
     return trabajo[6]
 
 def asignarTrabajo(t1,t2):
-    t1[0]=t2[0]
-    t1[1]=t2[1]
-    t1[2]=t2[2]
-    t1[3]=t2[3]
-    t1[4]=t2[4]
-    t1[5]=t2[5]
-    t1[6]=t2[6]
+    modID(t2,verId(t1))
+    modNombre(t2,verNombre(t1))
+    modFormato(t2,verFormato(t1))
+    modPaginas(t2,verPaginas(t1))
+    modPrioridad(t2,verPrioridad(t1))
+    modFecha(t2,verFecha(t1))
+    modHora(t2,verHora(t1))
