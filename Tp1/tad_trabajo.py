@@ -2,7 +2,7 @@ from datetime import date, time
 
 def crearTrabajo():
 # Crea un TAD trabajo con los siguientes campos: id, nombre, formato, paginas, prioridad, fecha y hora
-    return[0, "", "", 0, "", date(0000, 00, 00),time(00, 00)] 
+    return[0, "", "", 0, "", date(0001, 00, 00),time(00, 00)]
 
 def modID(trabajo, id):
 # Modifica el ID 
