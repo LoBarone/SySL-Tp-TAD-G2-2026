@@ -1,4 +1,4 @@
-from tad_cola import *
+from Tp1.tad_cola_trabajos import *
 from tad_trabajo import *
 
 
