@@ -13,6 +13,8 @@ def main():
         match opcion:
             case 1:
                 #procedimiento o codigo directamente
+                c=crearCola()
+                RecepciónDeDocumentos(c)
                 pass
             case 2:
                 #procedimiento o codigo directamente
@@ -35,9 +37,25 @@ def main():
             case _:
                 print("Error: La opción que usted seleccionó es invalida. ")
 
-def ejemplo(): # para cada solucion definamos una funcion que despues vamos a llamar dentro del main.
-    pass # el pass es solo para que no marque error, cuando escriban codigo saquenlo.
-
-
+def RecepciónDeDocumentos(cola):
+    print("\n--- Carga de Nuevo Trabajo ---")
+    jobId = int(input("Ingrese el ID (0 para cancelar): "))
+    
+    if jobId != 0:
+        nombDocu = input("Ingrese el Nombre: ")
+        tipo = input("Ingrese el Tipo: ")
+        cantPag = int(input("Ingrese la cantidad de Páginas: "))
+        nivel = input("Ingrese Nivel de Prioridad: ")
+        dia = int(input("Día: "))
+        mes = int(input("Mes: "))
+        año = int(input("Año: "))
+        hora = int(input("Hora: "))
+        minuto = int(input("Minuto: ")) 
+        t = crearTrabajo()
+        cargarTrabajo(t, jobId, nombDocu, tipo, cantPag, nivel, año, mes, dia, hora, minuto)
+        encolar(cola, t)
+        print("Trabajo encoladoagregado con éxito.")
+    else:
+        print("Error.")
 if __name__ == "__main__":
     main()
