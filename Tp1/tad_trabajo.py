@@ -2,7 +2,7 @@ from datetime import date, time
 
 def crearTrabajo():
 # Crea un TAD trabajo con los siguientes campos: id, nombre, formato, paginas, prioridad, fecha y hora
-    return[0, "", "", 0, "", date(1, 00, 00),time(00, 00)]
+    return[0, "", "", 0, "", date(1, 00, 00), time(00, 00)]
 
 
 def modID(trabajo, id):
@@ -26,7 +26,11 @@ def modPaginas(trabajo, paginas):
 
 
 def modPrioridad(trabajo, prioridad):
-# Modifica la prioridad
+# Modifica la prioridad; tipos de prioridad:
+# - n: Normal
+# - e: Express
+    if prioridad.lower() != "n" or prioridad.lower() != "e":
+        raise Exception("Error: No se dio un tipo de prioridad valido")
     trabajo[4] = prioridad
 
 
@@ -97,7 +101,9 @@ def verPaginas(trabajo):
 
 
 def verPrioridad(trabajo):
-# Retorna la prioridad del trabajo
+# Retorna la prioridad del trabajo; tipos de prioridad:
+# - n: Normal
+# - e: Express
     return trabajo[4]
 
 
