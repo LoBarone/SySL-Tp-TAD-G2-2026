@@ -31,7 +31,7 @@ def modPrioridad(trabajo, prioridad):
 # - e: Express
     if prioridad.lower() != "n" or prioridad.lower() != "e":
         raise Exception("Error: No se dio un tipo de prioridad valido")
-    trabajo[4] = prioridad
+    trabajo[4] = prioridad.lower()
 
 
 def modFecha(trabajo, año, mes, dia):
