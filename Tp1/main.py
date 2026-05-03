@@ -8,7 +8,7 @@ opcion=int(input("Seleccione la opción que desea utilizar: "))
 
 match opcion:
     case 1:
-        #procedimiento o codigo directamente
+        #NO ESTA TERMINADO VERIFICar
     case 2:
         #procedimiento o codigo directamente
     case 3:
@@ -21,3 +21,5 @@ match opcion:
         #procedimiento o codigo directamente
     case _:
         print("Error: La opción que usted seleccionó es invalida. ")
+
+
