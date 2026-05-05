@@ -6,8 +6,8 @@ def main():
     cola = crearCola()
     while True:
         print("--------"*6 + "\nPrograma gestion de impresiones:\n" + "--------"*6)
-        print("\n [ 1 ] - Cargar Documento\n [ 2 ] - Opcion 2\n [ 3 ] - Opcion 3\n [ 4 ] - Opcion 4\n [ 5 ] - Opcion 5\n [ 6 ] - Opcion 6\n [ 7 ] - Salir")
-        # Cambiar nombre opcion por el nombre correcto (me dio paja xd) -lolo
+        print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formayo y Franja Horaria.S\n [ 7 ] - Salir")
+        
         
         opcion = int(input("Seleccione la opción que desea utilizar:"))
 
