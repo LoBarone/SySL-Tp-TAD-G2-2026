@@ -56,27 +56,28 @@ def agregarTrabajo(cola):
 
 #Inciso 2
 def cambioDePrioridad(cola):
+    print("--- Cambio de Prioridad Individual ---")
     #Averiguamos si la cola esta vacia (mo hay ningun elemento)
     if colaVacia(cola):
         print("La cola está vacía.")
         return
     
     #Preparamos ciertos datos como el idBuscado, preparamos auxiliares.
-    idBuscado = int(input("Ingrese el ID de Trabaji que desea modificar: "))
+    idBuscado = int(input("Ingrese el ID de Trabajo que desea modificar: "))
     idEncontrado = False
     cola_auxiliar = crearCola()
 
     #Mientras la cola no este vacia, recorremos cada posicion buscando el id de trabajo
     while not colaVacia()
-        trabajo= desencolar(cola)
+        trabajo = desencolar(cola)
 
         if verId(trabajo) == idBuscado :
-            nuevaPrioridad = input("Ingrese la nueva prioridad (n: Normal / e: Express): ")
+            nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express): ")
 
             if nuevaPrioridad == "n" or nuevaPrioridad == "e":
                 modPrioridad(trabajo, nuevaPrioridad)
                 print("Cambio exitoso! Prioridad Actualizada.")
-                idEncontrado= True
+                idEncontrado = True
             else:
                 print("Error: Prioridad no válida. No se realizaron cambios. ")
 
