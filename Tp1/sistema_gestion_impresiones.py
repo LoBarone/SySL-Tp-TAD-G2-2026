@@ -6,10 +6,10 @@ def main():
     cola = crearCola()
     while True:
         print("--------"*6 + "\nPrograma gestion de impresiones:\n" + "--------"*6)
-        print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formayo y Franja Horaria.S\n [ 7 ] - Salir")
+        print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formayo y Franja Horaria.S\n [ 7 ] - Salir\n")
         
         
-        opcion = int(input("Seleccione la opción que desea utilizar:"))
+        opcion = int(input("Seleccione la opción que desea utilizar: "))
 
         match opcion:
             case 1:
@@ -31,7 +31,6 @@ def main():
                 print("Error: La opción que usted seleccionó es invalida. ")
                 
 
-#Inciso 1
 def agregarTrabajo(cola):
     print("--- Carga de Nuevo Trabajo ---")
     jobId = int(input("Ingrese el ID (0 para cancelar): "))
@@ -54,10 +53,9 @@ def agregarTrabajo(cola):
         print("Error: Id ingresado no es valido")
 
 
-#Inciso 2
 def cambioDePrioridad(cola):
     print("--- Cambio de Prioridad Individual ---")
-    #Se verifica si la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
+    # Se verifica que la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
     if colaVacia(cola):
         print("La cola está vacía.")
         return

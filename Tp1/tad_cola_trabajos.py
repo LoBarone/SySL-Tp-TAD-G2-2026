@@ -1,4 +1,3 @@
-#Implementacion de la cola
 def crearCola(): 
 # Crea y retorna una cola vacia
     return []
@@ -19,7 +18,7 @@ def desencolar(cola):
 
 def copiarCola(cola1, cola2): 
 # Cola 1 es donde se va a copiar, cola 2 es la cola original
-    aux=crearCola() 
+    aux = crearCola() 
     while not colaVacia(cola2):
         trabajo = desencolar(cola2)
         encolar(aux,trabajo)
