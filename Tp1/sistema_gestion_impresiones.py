@@ -91,7 +91,22 @@ def cambioDePrioridad(cola):
         encolar(cola, desencolar(cola_auxiliar))
 
 
+def colaALista(cola):
+# Convierte una cola a una lista. Elimina la cola
+    lista = []
+    while not colaVacia(cola):
+        lista.append(desencolar(cola))
 
+    return lista
+
+
+def listaACola(lista):
+# Convierte una lista a una cola.
+    cola = crearCola()
+    for trabajo in lista:
+        encolar(cola, trabajo)
+
+    return cola
 
 
 
