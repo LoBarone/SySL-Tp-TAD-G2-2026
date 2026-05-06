@@ -50,7 +50,7 @@ def agregarTrabajo(cola):
         encolar(cola, t)
         print("Trabajo agregado con éxito.")
     else:
-        raise Exception("Error: Id ingresado no es valido")
+        print("Error: El ID ingresado no es valido")
 
 
 if __name__ == "__main__":
