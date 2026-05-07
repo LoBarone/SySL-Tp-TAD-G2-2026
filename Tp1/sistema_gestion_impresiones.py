@@ -57,38 +57,37 @@ def cambioDePrioridad(cola):
     print("--- Cambio de Prioridad Individual ---")
     # Se verifica que la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
     if colaVacia(cola):
-        print("La cola está vacía.")
+        print("La cola está vacía. ")
         return
     
     #Se asignan datos para recorrer la lista
     idBuscado = int(input("Ingrese el ID de Trabajo que desea modificar: "))
     idEncontrado = False
-    cola_auxiliar = crearCola()
+    lista = colaALista(cola)
 
     #Mientras la cola no este vacía, se recorre la lista buscando el ID que se desea modificar. 
     #Si el ID es encontrado, se le asigna la prioridad y se modifica el trabajo.
     #Si el ID no es encontrado, se muestra un mensaje de error.
-    while not colaVacia(cola):
-        trabajo = desencolar(cola)
-
-        if verId(trabajo) == idBuscado :
+    
+    #El for recorre la lista usando a t como trabajo (definida anteriormente)
+    for t in lista :
+        if verId(t) == idBuscado :
             nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express): ")
 
-            if nuevaPrioridad == "n" or nuevaPrioridad == "e":
-                modPrioridad(trabajo, nuevaPrioridad)
+            if nuevaPrioridad in ["n", "e"]:
+                modPrioridad(t, nuevaPrioridad)
                 print("Cambio exitoso! Prioridad Actualizada.")
                 idEncontrado = True
             else:
                 print("Error: Prioridad no válida. No se realizaron cambios. ")
-
-        encolar(cola_auxiliar, trabajo)
+        
+        colaOriginal = listaACola(lista)
 
     if not idEncontrado:
-         print(f"No se encontró ningún trabajo con el ID {idBuscado}. ")
+        print(f"No se encontró ningún trabajo con el ID {idBuscado}. ")
 
-    #Se reconstruye la cola original con sus respectivas modificaciones.
-    while not colaVacia(cola_auxiliar):
-        encolar(cola, desencolar(cola_auxiliar))
+    while not colaVacia(cola) :
+        encolar(cola, desencolar(colaOriginal))
 
 
 def colaALista(cola):
