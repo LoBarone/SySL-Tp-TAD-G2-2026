@@ -85,8 +85,9 @@ def cambioDePrioridad(cola):
         return
     
     #Se asignan datos para recorrer la lista
-    idBuscado = int(input("Ingrese el ID de Trabajo que desea modificar: "))
+    idABuscar = int(input("Ingrese el ID de Trabajo que desea modificar: "))
     idEncontrado = False
+
     lista = colaALista(cola)
 
     #Mientras la cola no este vacía, se recorre la lista buscando el ID que se desea modificar. 
@@ -95,7 +96,7 @@ def cambioDePrioridad(cola):
     
     #El for recorre la lista usando a t como trabajo (definida anteriormente)
     for t in lista :
-        if verId(t) == idBuscado :
+        if verId(t) == idABuscar :
             nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express): ")
 
             if nuevaPrioridad in ["n", "e"]:
@@ -104,14 +105,13 @@ def cambioDePrioridad(cola):
                 idEncontrado = True
             else:
                 print("Error: Prioridad no válida. No se realizaron cambios. ")
-        
-        colaOriginal = listaACola(lista)
+            break
 
     if not idEncontrado:
         print(f"No se encontró ningún trabajo con el ID {idBuscado}. ")
 
-    while not colaVacia(cola) :
-        encolar(cola, desencolar(colaOriginal))
+    for elemento in lista :
+        encolar(cola, elemento )
 
 
 def colaALista(cola):
