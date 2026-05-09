@@ -36,19 +36,43 @@ def agregarTrabajo(cola):
     jobId = int(input("Ingrese el ID (0 para cancelar): "))
     
     if jobId > 0:
+        ok=False #corte de control final
         nombDocu = input("Ingrese el Nombre: ")
-        tipo = input("Ingrese el Tipo: ")
-        cantPag = int(input("Ingrese la cantidad de Páginas: "))
-        nivel = input("Ingrese Nivel de Prioridad: ")
-        dia = int(input("Día: "))
-        mes = int(input("Mes: "))
-        año = int(input("Año: "))
-        hora = int(input("Hora: "))
-        minuto = int(input("Minuto: ")) 
-        t = crearTrabajo()
-        cargarTrabajo(t, jobId, nombDocu, tipo, cantPag, nivel, año, mes, dia, hora, minuto)
-        encolar(cola, t)
-        print("Trabajo agregado con éxito.")
+        if(nombDocu!="")or(nombDocu!=" "):
+            tipo = input("Ingrese el Tipo: ")
+            cantPag = int(input("Ingrese la cantidad de Páginas: "))
+            nivel =(input("Ingrese Nivel de Prioridad [ e ] - Expres - [ n ] - Normal : ")).lower()
+            if((nivel=='e')or(nivel=='n')):
+                mes = int(input("Mes [ 1 - 12 ]: "))
+                if(mes==2):
+                    dia = int(input("Día [ 1 - 28 ] : "))
+                    if((dia>=1)and(dia<=28)):
+                        año=int(input("Ingrese año [2026 en adelante] :"))
+                        ok=True
+                elif((mes==1)or(mes==3)or(mes==5)or(mes==7)or(mes==8)or(mes==10)or(mes==12)):
+                    dia = int(input("Día [ 1 - 31 ] : "))
+                    if((dia>=1)and(dia<=31)):
+                        año=int(input("Ingrese año [2026 en adelante] :"))
+                        ok=True
+                elif((mes==4)or(mes==6)or(mes==9)or(mes==11)):
+                    dia = int(input("Día [ 1 - 30 ] : "))
+                    if((dia>=1)and(dia<=30)):
+                        año=int(input("Ingrese año [2026 en adelante] :"))
+                        ok=True
+                else:
+                    print("Error, Mes invalido")
+        
+                if(ok):
+                    if(año>=2026):
+                        hora = int(input("Hora [ 0 - 23 ]: "))
+                        if((hora>=0)and(hora<=23)):
+                            minuto = int(input("Minuto [ 0 - 59 ]: "))
+                            if((minuto>=0)and(minuto<=59)):
+                                t = crearTrabajo()
+                                cargarTrabajo(t, jobId, nombDocu, tipo, cantPag, nivel, año, mes, dia, hora, minuto)
+                                encolar(cola, t)
+                                print("Trabajo agregado con éxito.")
+            else: print("Error: Nivel Invalido")
     else:
         print("Error: Id ingresado no es valido")
 
