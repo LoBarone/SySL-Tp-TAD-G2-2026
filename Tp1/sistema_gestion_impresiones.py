@@ -97,7 +97,7 @@ def cambioDePrioridad(cola):
     #El for recorre la lista usando a t como trabajo (definida anteriormente)
     for t in lista :
         if verId(t) == idABuscar :
-            nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express): ")
+            nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express): ").lower()
 
             if nuevaPrioridad in ["n", "e"]:
                 modPrioridad(t, nuevaPrioridad)
@@ -108,7 +108,7 @@ def cambioDePrioridad(cola):
             break
 
     if not idEncontrado:
-        print(f"No se encontró ningún trabajo con el ID {idBuscado}. ")
+        print(f"No se encontró ningún trabajo con el ID {idABuscar}. ")
 
     for elemento in lista :
         encolar(cola, elemento )
