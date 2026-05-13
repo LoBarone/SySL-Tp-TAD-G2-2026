@@ -5,7 +5,7 @@ def main():
     cola = crearCola()
     while True:
         print("--------"*6 + "\nPrograma gestion de impresiones:\n" + "--------"*6)
-        print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formato y Franja Horaria\n [ 7 ] - Salir\n")
+        print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formato\n [ 7 ] - Filtrado por Franja Horaria\n [ 8 ] - Salir")
         
         
         opcion = int(input("Seleccione la opción que desea utilizar: "))
@@ -144,14 +144,21 @@ def visualizacionCola(cola):
         t = desencolar(colaaux)
 
         #Renombramos a "e" y "n" por EXPRESS y NORMAL
-        prioridad = "Express" if verFormato(t)== "e" else "Normal"
+        prioridad = verPrioridad(t)
+        match prioridad:
+            case "b":
+                prioridad = "Basica"
+            case "n":
+                prioridad = "Normal"
+            case "e":
+                prioridad = "Express"
 
         #Impresión de los trabajos
         print(f" {cont}. -Job ID: {verId(t)}")
         print(f" - Formato: {verFormato(t)}")
         print(f" - Documento: {verNombre(t)}")
-        print(f" - Cantidad de páginas: {prioridad}")
-        print(f" - Prioridad: {verPrioridad(t)}")
+        print(f" - Cantidad de páginas: {verPaginas(t)}")
+        print(f" - Prioridad: {prioridad}")
         print(f" - Fecha: {verDia(t):02d}/{verMes(t):02d}/{verAño(t):02d}")
         print(f" - Hora: {verHora(t):02d}:{verMinuto(t):02d}")
         print("---"*6)
