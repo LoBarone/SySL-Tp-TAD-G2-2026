@@ -1,7 +1,6 @@
 from tad_cola_trabajos import *
 from tad_trabajo import *
 
-
 def main():
     cola = crearCola()
     while True:
@@ -19,7 +18,7 @@ def main():
             case 3:
                 pass
             case 4:
-                pass
+                visualizacionCola(cola)
             case 5:
                 pass
             case 6:
@@ -112,6 +111,42 @@ def cambioDePrioridad(cola):
 
     for elemento in lista :
         encolar(cola, elemento )
+
+
+
+def visualizacionCola(cola):
+    print("--- Visualización de Cola ---")
+    #Verifico que la cola no este vacia, si no esta vacia, continua la ejecución.
+    if colaVacia(cola):
+        print("No hay trabajos pendientes de impresión. ")
+        return
+    else:
+        #Crea una cola auxiliar para no perder los datos
+        colaaux = crearCola()
+        #Copia los datos de la cola (original) a la cola (auxiliar)
+        copiarCola(colaaux, cola)
+    
+    cont = 1
+    while not colaVacia(colaaux):
+        #Desencolo elemento por elemento
+        t = desencolar(colaaux)
+
+        #Renombramos a "e" y "n" por EXPRESS y NORMAL
+        prioridad = "Express" if verFormato(t)== "e" else "Normal"
+
+        #Impresión de los trabajos
+        print(f" {cont}. -Job ID: {verId(t)}")
+        print(f" - Formato: {verFormato(t)}")
+        print(f" - Documento: {verNombre(t)}")
+        print(f" - Cantidad de páginas: {prioridad}")
+        print(f" - Prioridad: {verPrioridad(t)}")
+        print(f" - Fecha: {verDia(t):02d}/{verMes(t):02d}/{verAño(t):02d}")
+        print(f" - Hora: {verHora(t):02d}:{verMinuto(t):02d}")
+        print("---"*6)
+
+        cont += 1
+
+    print("------"*4)
 
 
 def colaALista(cola):
