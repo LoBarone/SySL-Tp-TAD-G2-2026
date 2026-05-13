@@ -6,7 +6,7 @@ def main():
     cola = crearCola()
     while True:
         print("--------"*6 + "\nPrograma gestion de impresiones:\n" + "--------"*6)
-        print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formayo y Franja Horaria.S\n [ 7 ] - Salir\n")
+        print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formato y Franja Horaria\n [ 7 ] - Salir\n")
         
         
         opcion = int(input("Seleccione la opción que desea utilizar: "))
@@ -21,15 +21,26 @@ def main():
             case 4:
                 pass
             case 5:
-                pass
+                reajusteMasivoPorFecha(cola)
             case 6:
                 pass
             case 7:
+                pass
+            case 8:
                 print("Fin del programa!")
                 break
+            case 9:
+            # Lo agrego para debug trabajo, id, nombre, formato, paginas, prioridad, año, mes, dia, hora, minuto
+                t1 = [1, "juan", "pdf", 1, "e", date(1, 1, 1), time(00, 00)]
+                t2 = [1, "jorge", "algo", 1, "n", date(1, 1, 1), time(00, 00)]
+                t3 = [1, "qsy", "pdf", 1, "b", date(1, 1, 1), time(00, 00)]
+                cola.append(t1)
+                cola.append(t2)
+                cola.append(t3)
             case _:
                 print("Error: La opción que usted seleccionó es invalida. ")
-                
+
+
 
 def agregarTrabajo(cola):
     print("--- Carga de Nuevo Trabajo ---")
@@ -41,7 +52,7 @@ def agregarTrabajo(cola):
         if(nombDocu!="")or(nombDocu!=" "):
             tipo = input("Ingrese el Tipo: ")
             cantPag = int(input("Ingrese la cantidad de Páginas: "))
-            nivel =(input("Ingrese Nivel de Prioridad [ e ] - Expres - [ n ] - Normal : ")).lower()
+            nivel =(input("Niveles de Prioridad \n[ b ] - Baja \n[ e ] - Express \n[ n ] - Normal\nIngrese el nivel de prioridad: ")).lower()
             if((nivel=='e')or(nivel=='n')):
                 mes = int(input("Mes [ 1 - 12 ]: "))
                 if(mes==2):
@@ -75,6 +86,7 @@ def agregarTrabajo(cola):
             else: print("Error: Nivel Invalido")
     else:
         print("Error: Id ingresado no es valido")
+
 
 
 def cambioDePrioridad(cola):
@@ -114,6 +126,7 @@ def cambioDePrioridad(cola):
         encolar(cola, elemento )
 
 
+
 def colaALista(cola):
 # Convierte una cola a una lista. Elimina la cola
     lista = []
@@ -121,6 +134,7 @@ def colaALista(cola):
         lista.append(desencolar(cola))
 
     return lista
+
 
 
 def listaACola(lista):
@@ -131,6 +145,34 @@ def listaACola(lista):
 
     return cola
 
+
+
+def reajusteMasivoPorFecha(cola):
+# Dado un mes, actualiza la prioridad a baja a todos los trabajos del mismo.
+    if not cola:
+        print("Error: La cola esta vacia!")
+        return
+        
+
+    while True:
+        try:
+            mesDado = int(input("Ingrese el mes para el que desea bajar la prioridad: "))
+            if not (12 >= mesDado >= 1):
+                print("Ingrese un mes valido")
+                continue
+
+            break
+        except ValueError:
+            print("Ingrese un valor valido")
+    
+    trabajos = colaALista(cola)
+    for trabajo in trabajos:
+        if verMes(trabajo) == mesDado:
+            modPrioridad(trabajo, "b")
+
+    
+    copiarCola(cola, listaACola(trabajos))
+  
 
 
 if __name__ == "__main__":

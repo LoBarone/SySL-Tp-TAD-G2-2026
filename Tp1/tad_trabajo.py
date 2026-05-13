@@ -27,9 +27,10 @@ def modPaginas(trabajo, paginas):
 
 def modPrioridad(trabajo, prioridad):
 # Modifica la prioridad; tipos de prioridad:
+# - b: Basica
 # - n: Normal
 # - e: Express
-    if prioridad.lower() != "n" and prioridad.lower() != "e":
+    if prioridad not in ["b", "n", "e"]:
         raise Exception("Error: No se dio un tipo de prioridad valido")
     trabajo[4] = prioridad.lower()
 
@@ -101,7 +102,8 @@ def verPaginas(trabajo):
 
 
 def verPrioridad(trabajo):
-# Retorna la prioridad del trabajo; tipos de prioridad:
+# Retorna la prioridad del trabajo; tipos de prioridad
+# - b: Baja
 # - n: Normal
 # - e: Express
     return trabajo[4]
