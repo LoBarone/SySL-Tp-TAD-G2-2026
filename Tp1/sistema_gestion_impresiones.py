@@ -83,7 +83,7 @@ def agregarTrabajo(cola):
         try:
             fecha = input("Ingrese fecha de envío (DD/MM/AAAA): ")
             # strptime valida bisiestos y días máximos automáticamente 
-            fecha_valida = datetime.strptime(fecha, "%d/%m/%Y").date()
+            fecha_valida = date.strptime(fecha, "%d/%m/%Y").date()
             # Validación de negocio , es para no permitir fechas invalidad , es decir anterior a la actual
             if fecha_valida < date.today():
                 print("Inválido: La fecha no puede ser anterior a hoy.")
@@ -96,7 +96,7 @@ def agregarTrabajo(cola):
         try:
             h = input("Ingrese hora de envío (HH:MM): ")
             # Valida que los rangos sean de 00:00 a 23:59
-            hora_valida = datetime.strptime(h, "%H:%M").time()
+            hora_valida = date.strptime(h, "%H:%M").time()
             break
         except ValueError:
             print("Error: Hora inválida o formato incorrecto (HH:MM).")
