@@ -251,7 +251,6 @@ def reajusteMasivoPorFecha(cola):
     copiarCola(cola, listaACola(trabajos))
 
 
-
 def genSubColaHoraria(cola):
 # Dada una franja horaria, genera una Sub-Cola con solo los trabajos que deben realizarse en esa franja especifica.
     if not cola:
@@ -283,7 +282,54 @@ def genSubColaHoraria(cola):
         encolar(cola, t)
 
     return subcola
+def cancelacionPorFormato(cola):
+    print(" CANCELACIÓN POR FORMATO ")
 
+<<<<<<< HEAD
+=======
+def cancelacionPorFormato(cola):
+    print(" CANCELACIÓN POR FORMATO ")
+
+>>>>>>> 3be49cd16477ce3a9c8e32fbd38faae36ceb2aa3
+    if colaVacia(cola):
+        print("La cola está vacía. No hay trabajos para cancelar")
+        return
+
+    # Solicitar el formato a eliminar
+    formato_a_eliminar = input("Ingrese el tipo de formato a cancelar (ej: Imagen, PDF): ").strip() # Se va a usar para devolver el formato eliminado
+    if not formato_a_eliminar:
+        print("Error: Debe ingresar un formato válido.")
+        return
+
+    # Contador para ver cuantos trabajos elimine para informar al final
+    eliminados = 0
+    
+    # Crear la cola auxiliar para los que no se descartan
+    aux = crearCola()
+
+    # Vaciar la cola original para filtrar
+    while not colaVacia(cola):
+        trabajo_actual = desencolar(cola)
+        
+        # Hacemos uso la función del TAD para ver el formato sin modificar la cola original
+        if verFormato(trabajo_actual).lower() == formato_a_eliminar.lower():
+            eliminados += 1  # si lo encontre, se descarta (no se encola en aux)
+        else:
+            encolar(aux, trabajo_actual) # No coincide, lo encolo
+
+    # Volver a pasar los que no se descartaron
+
+    copiarCola(cola, aux)
+
+    # Informar si se pudo o no realizar la eliminacion y de haberlo hecho devolver la cantidad y el formato eliminados
+    if eliminados > 0:
+        print(f"Operación exitosa. Se eliminaron {eliminados} trabajos con formato '{formato_a_eliminar}'.")
+    else:
+        print(f" No se encontraron trabajos con el formato '{formato_a_eliminar}' en la cola.")
+<<<<<<< HEAD
+        
+=======
+>>>>>>> 3be49cd16477ce3a9c8e32fbd38faae36ceb2aa3
 
 if __name__ == "__main__":
     main()
