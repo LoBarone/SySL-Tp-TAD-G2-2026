@@ -144,13 +144,12 @@ def cambioDePrioridad(cola):
         if verId(t) == idABuscar :
             nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express / b: Baja)").lower()
 
-            if nuevaPrioridad in ["n", "e", "b"]
+            if nuevaPrioridad in ["n", "e", "b"]:
                 modPrioridad(t, nuevaPrioridad)
                 print("¡Cambio exitoso! La prioridad ha sido actualizada. ")
                 idEncontrado = True
             else:
                 print("Error: Prioridad no válida. No se realizaron cambios. ")
-            break
         
         #Se vuelve a encolar cada elemento, indistintamente de si se modifico la prioridad.
         encolar(cola, t)
@@ -158,7 +157,6 @@ def cambioDePrioridad(cola):
     #Si el ID no es encontrado, se muestra un mensaje de error.
     if not idEncontrado:
         print(f"No se encontró ningún trabajo con el ID {idABuscar}. ")
-
 
 
 def visualizacionCola(cola):
