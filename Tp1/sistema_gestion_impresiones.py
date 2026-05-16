@@ -1,5 +1,6 @@
-from tad_cola_trabajos import *
+from tad_cola import *
 from tad_trabajo import *
+from datetime import datetime
 
 def main():
     cola = crearCola()
@@ -24,6 +25,8 @@ def main():
             case 6:
                 pass
             case 7:
+                subcola = genSubColaHoraria(cola)
+                visualizacionCola(subcola)
                 pass
             case 8:
                 print("Fin del programa!")
@@ -31,7 +34,7 @@ def main():
             case 9:
             # Lo agrego para debug trabajo, id, nombre, formato, paginas, prioridad, año, mes, dia, hora, minuto
                 t1 = [1, "juan", "pdf", 1, "e", date(1, 1, 1), time(00, 00)]
-                t2 = [1, "jorge", "algo", 1, "n", date(1, 1, 1), time(00, 00)]
+                t2 = [1, "jorge", "algo", 1, "n", date(1, 1, 1), time(10, 00)]
                 t3 = [1, "qsy", "pdf", 1, "b", date(1, 1, 1), time(00, 00)]
                 cola.append(t1)
                 cola.append(t2)
@@ -245,7 +248,40 @@ def reajusteMasivoPorFecha(cola):
 
     
     copiarCola(cola, listaACola(trabajos))
-  
+
+
+
+def genSubColaHoraria(cola):
+# Dada una franja horaria, genera una Sub-Cola con solo los trabajos que deben realizarse en esa franja especifica.
+    if not cola:
+        print("Error: La cola esta vacia!")
+        return
+    
+    # Creo sub-cola
+    subcola = crearCola()
+
+    # Cargo franja horaria
+    while True:
+        try:
+            ini = datetime.strptime(input("Ingrese el inicio de la franja horaria (formato HH:MM): "), "%H:%M").time()
+            fin = datetime.strptime(input("Ingrese el final de la franja horaria (formato HH:MM): "), "%H:%M").time()
+
+            if(ini > fin): # Veo que sea una franja valida
+                print("Ingresa un horario valido!")
+                continue
+
+            break
+        except ValueError:
+            print("Ingresá un horario valido!")
+
+    for i in range(tamaño(cola)):
+        t = desencolar(cola)
+        hora = time(verHora(t), verMinuto(t))
+        if (ini <= hora <= fin):
+            encolar(subcola, t)
+        encolar(cola, t)
+
+    return subcola
 
 
 if __name__ == "__main__":
