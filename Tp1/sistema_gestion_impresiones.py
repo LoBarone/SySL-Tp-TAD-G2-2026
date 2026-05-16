@@ -1,5 +1,6 @@
-from tad_cola_trabajos import *
+from tad_cola import *
 from tad_trabajo import *
+from datetime import datetime
 
 def main():
     cola = crearCola()
@@ -24,6 +25,8 @@ def main():
             case 6:
                 pass
             case 7:
+                subcola = genSubColaHoraria(cola)
+                visualizacionCola(subcola)
                 pass
             case 8:
                 print("Fin del programa!")
@@ -31,7 +34,7 @@ def main():
             case 9:
             # Lo agrego para debug trabajo, id, nombre, formato, paginas, prioridad, año, mes, dia, hora, minuto
                 t1 = [1, "juan", "pdf", 1, "e", date(1, 1, 1), time(00, 00)]
-                t2 = [1, "jorge", "algo", 1, "n", date(1, 1, 1), time(00, 00)]
+                t2 = [1, "jorge", "algo", 1, "n", date(1, 1, 1), time(10, 00)]
                 t3 = [1, "qsy", "pdf", 1, "b", date(1, 1, 1), time(00, 00)]
                 cola.append(t1)
                 cola.append(t2)
@@ -121,6 +124,7 @@ def agregarTrabajo(cola):
 
 
 def cambioDePrioridad(cola):
+    # Procedimiento en el cual se evalua la cola de trabajos del sistema de impresión, buscando un id en especifico para modificarle la prioridad.
     print("--- Cambio de Prioridad Individual ---")
     # Se verifica que la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
     if colaVacia(cola):
@@ -130,7 +134,7 @@ def cambioDePrioridad(cola):
     #Se asignan datos para recorrer la lista
     idABuscar = int(input("Ingrese el ID de Trabajo que desea modificar: "))
     idEncontrado = False
-
+        
     lista = colaALista(cola)
 
     #Mientras la cola no este vacía, se recorre la lista buscando el ID que se desea modificar. 
@@ -144,7 +148,7 @@ def cambioDePrioridad(cola):
 
             if nuevaPrioridad in ["n", "e"]:
                 modPrioridad(t, nuevaPrioridad)
-                print("Cambio exitoso! Prioridad Actualizada.")
+                print("¡Cambio exitoso! La prioridad ha sido actualizada. ")
                 idEncontrado = True
             else:
                 print("Error: Prioridad no válida. No se realizaron cambios. ")
@@ -159,6 +163,7 @@ def cambioDePrioridad(cola):
 
 
 def visualizacionCola(cola):
+    # Este procedimiento se encarga de visualizar todos los elementos de la cola, mostrando asi las impresiones de manera ordenada en base al id.
     print("--- Visualización de Cola ---")
     #Verifico que la cola no este vacia, si no esta vacia, continua la ejecución.
     if colaVacia(cola):
@@ -245,7 +250,39 @@ def reajusteMasivoPorFecha(cola):
 
     
     copiarCola(cola, listaACola(trabajos))
-  
+
+
+def genSubColaHoraria(cola):
+# Dada una franja horaria, genera una Sub-Cola con solo los trabajos que deben realizarse en esa franja especifica.
+    if not cola:
+        print("Error: La cola esta vacia!")
+        return
+    
+    # Creo sub-cola
+    subcola = crearCola()
+
+    # Cargo franja horaria
+    while True:
+        try:
+            ini = datetime.strptime(input("Ingrese el inicio de la franja horaria (formato HH:MM): "), "%H:%M").time()
+            fin = datetime.strptime(input("Ingrese el final de la franja horaria (formato HH:MM): "), "%H:%M").time()
+
+            if(ini > fin): # Veo que sea una franja valida
+                print("Ingresa un horario valido!")
+                continue
+
+            break
+        except ValueError:
+            print("Ingresá un horario valido!")
+
+    for i in range(tamaño(cola)):
+        t = desencolar(cola)
+        hora = time(verHora(t), verMinuto(t))
+        if (ini <= hora <= fin):
+            encolar(subcola, t)
+        encolar(cola, t)
+
+    return subcola
 def cancelacionPorFormato(cola):
     print(" CANCELACIÓN POR FORMATO ")
 

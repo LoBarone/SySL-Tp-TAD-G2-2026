@@ -1,4 +1,4 @@
-from datetime import date, time,datatime
+from datetime import date, time
 
 def crearTrabajo():
 # Crea un TAD trabajo con los siguientes campos: id, nombre, formato, paginas, prioridad, fecha y hora
