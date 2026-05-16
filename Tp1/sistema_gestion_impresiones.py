@@ -40,52 +40,84 @@ def main():
                 print("Error: La opción que usted seleccionó es invalida. ")
 
 
-
 def agregarTrabajo(cola):
-    print("--- Carga de Nuevo Trabajo ---")
-    jobId = int(input("Ingrese el ID (0 para cancelar): "))
+    print(" RECEPCIÓN DE DOCUMENTOS ")
+    # Validación de ID, Nombre, Tipo y Páginas
+    # Uso de los try y excepts
+    try:
+        jobId = int(input("Ingrese el ID (0 para cancelar): "))
+        if jobId == 0:
+            print("Operación cancelada por el usuario.")
+            return
+        if jobId < 0:
+            print("Error")
+            return
+    except ValueError:
+        print("Error: El ID debe ser un número entero.")
+        return
     
-    if jobId > 0:
-        ok=False #corte de control final
-        nombDocu = input("Ingrese el Nombre: ")
-        if(nombDocu!="")or(nombDocu!=" "):
-            tipo = input("Ingrese el Tipo: ")
-            cantPag = int(input("Ingrese la cantidad de Páginas: "))
-            nivel =(input("Niveles de Prioridad \n[ b ] - Baja \n[ e ] - Express \n[ n ] - Normal\nIngrese el nivel de prioridad: ")).lower()
-            if((nivel=='e')or(nivel=='n')):
-                mes = int(input("Mes [ 1 - 12 ]: "))
-                if(mes==2):
-                    dia = int(input("Día [ 1 - 28 ] : "))
-                    if((dia>=1)and(dia<=28)):
-                        año=int(input("Ingrese año [2026 en adelante] :"))
-                        ok=True
-                elif((mes==1)or(mes==3)or(mes==5)or(mes==7)or(mes==8)or(mes==10)or(mes==12)):
-                    dia = int(input("Día [ 1 - 31 ] : "))
-                    if((dia>=1)and(dia<=31)):
-                        año=int(input("Ingrese año [2026 en adelante] :"))
-                        ok=True
-                elif((mes==4)or(mes==6)or(mes==9)or(mes==11)):
-                    dia = int(input("Día [ 1 - 30 ] : "))
-                    if((dia>=1)and(dia<=30)):
-                        año=int(input("Ingrese año [2026 en adelante] :"))
-                        ok=True
-                else:
-                    print("Error, Mes invalido")
-        
-                if(ok):
-                    if(año>=2026):
-                        hora = int(input("Hora [ 0 - 23 ]: "))
-                        if((hora>=0)and(hora<=23)):
-                            minuto = int(input("Minuto [ 0 - 59 ]: "))
-                            if((minuto>=0)and(minuto<=59)):
-                                t = crearTrabajo()
-                                cargarTrabajo(t, jobId, nombDocu, tipo, cantPag, nivel, año, mes, dia, hora, minuto)
-                                encolar(cola, t)
-                                print("Trabajo agregado con éxito.")
-            else: print("Error: Nivel Invalido")
-    else:
-        print("Error: Id ingresado no es valido")
+    nombDocu = input("Ingrese el Nombre del documento: ")
+    if not nombDocu:
+        print("Error: El nombre no puede estar vacío.")
+        return
 
+    tipo = input("Ingrese el Tipo de formato (PDF, DOCX, etc.): ")
+    if not tipo:
+        print("Error: El tipo de formato no puede estar vacío.")
+        return
+
+    try:
+        cantPag = int(input("Ingrese la cantidad de Páginas: "))
+        if cantPag <= 0:
+            print("Error: La cantidad de páginas debe ser mayor a 0.")
+            return
+    except ValueError:
+        print("Error: La cantidad de páginas debe ser un número entero.")
+        return
+    # Validación de Prioridad 
+    nivel = input("Prioridad [ b ]-Básica | [ n ]-Normal | [ e ]-Express: ").lower()
+    if nivel not in ["b", "n", "e"]:
+        print("Error: Tipo de prioridad inválido.")
+        return
+    while True:
+        try:
+            fecha = input("Ingrese fecha de envío (DD/MM/AAAA): ")
+            # strptime valida bisiestos y días máximos automáticamente 
+            fecha_valida = datetime.strptime(fecha, "%d/%m/%Y").date()
+            # Validación de negocio , es para no permitir fechas invalidad , es decir anterior a la actual
+            if fecha_valida < date.today():
+                print("Inválido: La fecha no puede ser anterior a hoy.")
+                continue
+            break
+        except ValueError:
+            print("Error: Fecha inexistente o formato incorrecto (DD/MM/AAAA).")
+
+    while True:
+        try:
+            h = input("Ingrese hora de envío (HH:MM): ")
+            # Valida que los rangos sean de 00:00 a 23:59
+            hora_valida = datetime.strptime(h, "%H:%M").time()
+            break
+        except ValueError:
+            print("Error: Hora inválida o formato incorrecto (HH:MM).")
+    # Separarlos 
+    año = fecha_valida.year
+    mes = fecha_valida.month
+    dia = fecha_valida.day
+    
+    hora = hora_valida.hour
+    minuto = hora_valida.minute
+    # Instanciación, Carga y Encolado , ya paso todos los filtros con los try/excepts
+    try:
+        t = crearTrabajo()
+        cargarTrabajo(t, jobId, nombDocu, tipo, cantPag, nivel, año, mes, dia, hora, minuto)
+        encolar(cola, t)
+        
+        print(f"Trabajo Agregado")
+        
+    except Exception as e:
+        # Excepcion del TAD , algun error del mismo , esta solo para evitar que re rompa todo
+        print(f"Error")
 
 
 def cambioDePrioridad(cola):
