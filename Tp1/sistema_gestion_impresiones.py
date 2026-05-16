@@ -43,6 +43,7 @@ def main():
                 print("Error: La opción que usted seleccionó es invalida. ")
 
 
+
 def agregarTrabajo(cola):
     print(" RECEPCIÓN DE DOCUMENTOS ")
     # Validación de ID, Nombre, Tipo y Páginas
@@ -121,6 +122,7 @@ def agregarTrabajo(cola):
     except Exception as e:
         # Excepcion del TAD , algun error del mismo , esta solo para evitar que re rompa todo
         print(f"Error")
+
 
 
 def cambioDePrioridad(cola):
@@ -204,6 +206,7 @@ def visualizacionCola(cola):
     print("------"*4)
 
 
+
 def colaALista(cola):
 # Convierte una cola a una lista. Elimina la cola
     lista = []
@@ -251,6 +254,7 @@ def reajusteMasivoPorFecha(cola):
     copiarCola(cola, listaACola(trabajos))
 
 
+
 def genSubColaHoraria(cola):
 # Dada una franja horaria, genera una Sub-Cola con solo los trabajos que deben realizarse en esa franja especifica.
     if not cola:
@@ -282,15 +286,12 @@ def genSubColaHoraria(cola):
         encolar(cola, t)
 
     return subcola
+
+
+
 def cancelacionPorFormato(cola):
     print(" CANCELACIÓN POR FORMATO ")
 
-<<<<<<< HEAD
-=======
-def cancelacionPorFormato(cola):
-    print(" CANCELACIÓN POR FORMATO ")
-
->>>>>>> 3be49cd16477ce3a9c8e32fbd38faae36ceb2aa3
     if colaVacia(cola):
         print("La cola está vacía. No hay trabajos para cancelar")
         return
@@ -326,10 +327,9 @@ def cancelacionPorFormato(cola):
         print(f"Operación exitosa. Se eliminaron {eliminados} trabajos con formato '{formato_a_eliminar}'.")
     else:
         print(f" No se encontraron trabajos con el formato '{formato_a_eliminar}' en la cola.")
-<<<<<<< HEAD
         
-=======
->>>>>>> 3be49cd16477ce3a9c8e32fbd38faae36ceb2aa3
+
+
 
 if __name__ == "__main__":
     main()
