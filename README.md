@@ -25,10 +25,10 @@ Dado un mes ingresado por el usuario, actualizar la prioridad a "Baja" para todo
 trabajos cuya fecha de envío corresponda a ese mes (útil para tareas de mantenimiento
 sobre archivos viejos que quedaron en cola).
   6. Filtrado por Formato y Franja Horaria:
-   a) Cancelación por Formato: Eliminar de la cola todos los trabajos cuyo Tipo
+    a) Cancelación por Formato: Eliminar de la cola todos los trabajos cuyo Tipo
   de Formato coincida con el valor ingresado por el usuario (ej: eliminar todos
   los archivos "Imagen" por falta de tinta a color).
-   b) Generación de Sub-Cola Horaria: Crear una nueva Cola con los trabajos
+    b) Generación de Sub-Cola Horaria: Crear una nueva Cola con los trabajos
   cuya hora de envío se encuentre dentro de un intervalo definido por el usuario
   (ej: trabajos enviados en el turno mañana), e imprimir su contenido
   automáticamente.
