@@ -121,6 +121,7 @@ def agregarTrabajo(cola):
 
 
 def cambioDePrioridad(cola):
+    # Procedimiento en el cual se evalua la cola de trabajos del sistema de impresión, buscando un id en especifico para modificarle la prioridad.
     print("--- Cambio de Prioridad Individual ---")
     # Se verifica que la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
     if colaVacia(cola):
@@ -130,7 +131,7 @@ def cambioDePrioridad(cola):
     #Se asignan datos para recorrer la lista
     idABuscar = int(input("Ingrese el ID de Trabajo que desea modificar: "))
     idEncontrado = False
-
+        
     lista = colaALista(cola)
 
     #Mientras la cola no este vacía, se recorre la lista buscando el ID que se desea modificar. 
@@ -144,7 +145,7 @@ def cambioDePrioridad(cola):
 
             if nuevaPrioridad in ["n", "e"]:
                 modPrioridad(t, nuevaPrioridad)
-                print("Cambio exitoso! Prioridad Actualizada.")
+                print("¡Cambio exitoso! La prioridad ha sido actualizada. ")
                 idEncontrado = True
             else:
                 print("Error: Prioridad no válida. No se realizaron cambios. ")
@@ -159,6 +160,7 @@ def cambioDePrioridad(cola):
 
 
 def visualizacionCola(cola):
+    # Este procedimiento se encarga de visualizar todos los elementos de la cola, mostrando asi las impresiones de manera ordenada en base al id.
     print("--- Visualización de Cola ---")
     #Verifico que la cola no este vacia, si no esta vacia, continua la ejecución.
     if colaVacia(cola):
