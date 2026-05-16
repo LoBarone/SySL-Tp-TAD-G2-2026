@@ -124,41 +124,40 @@ def agregarTrabajo(cola):
 
 
 def cambioDePrioridad(cola):
-    # Procedimiento en el cual se evalua la cola de trabajos del sistema de impresión, buscando un id en especifico para modificarle la prioridad.
     print("--- Cambio de Prioridad Individual ---")
     # Se verifica que la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
     if colaVacia(cola):
         print("La cola está vacía. ")
         return
     
-    #Se asignan datos para recorrer la lista
+    #Se asignan datos para recorrer la cola, y se asignan una variable para el tamaño de la cola.
     idABuscar = int(input("Ingrese el ID de Trabajo que desea modificar: "))
     idEncontrado = False
-        
-    lista = colaALista(cola)
+    cantElementos = tamaño(cola)
 
-    #Mientras la cola no este vacía, se recorre la lista buscando el ID que se desea modificar. 
-    #Si el ID es encontrado, se le asigna la prioridad y se modifica el trabajo.
-    #Si el ID no es encontrado, se muestra un mensaje de error.
-    
-    #El for recorre la lista usando a t como trabajo (definida anteriormente)
-    for t in lista :
+    #Mientras la cola no este vacía, se recorre la cola en base a la cantidad de elementos, buscando el ID que se desea modificar.
+    for i in range (cantElementos) :
+        #Se desencola cada elemento asignandolo como t (trabajo)
+        t = desencolar(cola)
+
+        #Si el ID es encontrado, se le asigna una nueva prioridad, y se modifica el trabajo.
         if verId(t) == idABuscar :
-            nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express): ").lower()
+            nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express / b: Baja)").lower()
 
-            if nuevaPrioridad in ["n", "e"]:
+            if nuevaPrioridad in ["n", "e", "b"]
                 modPrioridad(t, nuevaPrioridad)
                 print("¡Cambio exitoso! La prioridad ha sido actualizada. ")
                 idEncontrado = True
             else:
                 print("Error: Prioridad no válida. No se realizaron cambios. ")
             break
+        
+        #Se vuelve a encolar cada elemento, indistintamente de si se modifico la prioridad.
+        encolar(cola, t)
 
+    #Si el ID no es encontrado, se muestra un mensaje de error.
     if not idEncontrado:
         print(f"No se encontró ningún trabajo con el ID {idABuscar}. ")
-
-    for elemento in lista :
-        encolar(cola, elemento )
 
 
 
