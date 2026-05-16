@@ -286,6 +286,12 @@ def genSubColaHoraria(cola):
 def cancelacionPorFormato(cola):
     print(" CANCELACIÓN POR FORMATO ")
 
+<<<<<<< HEAD
+=======
+def cancelacionPorFormato(cola):
+    print(" CANCELACIÓN POR FORMATO ")
+
+>>>>>>> 3be49cd16477ce3a9c8e32fbd38faae36ceb2aa3
     if colaVacia(cola):
         print("La cola está vacía. No hay trabajos para cancelar")
         return
@@ -321,7 +327,10 @@ def cancelacionPorFormato(cola):
         print(f"Operación exitosa. Se eliminaron {eliminados} trabajos con formato '{formato_a_eliminar}'.")
     else:
         print(f" No se encontraron trabajos con el formato '{formato_a_eliminar}' en la cola.")
+<<<<<<< HEAD
         
+=======
+>>>>>>> 3be49cd16477ce3a9c8e32fbd38faae36ceb2aa3
 
 if __name__ == "__main__":
     main()
