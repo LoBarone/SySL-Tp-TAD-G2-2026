@@ -23,6 +23,7 @@ def main():
             case 5:
                 reajusteMasivoPorFecha(cola)
             case 6:
+                cancelacionPorFormato(cola)
                 pass
             case 7:
                 subcola = genSubColaHoraria(cola)
