@@ -46,6 +46,7 @@ def main():
 
 
 def agregarTrabajo(cola):
+# Agrega un trabajo a la cola
     print(" RECEPCIÓN DE DOCUMENTOS ")
     # Validación de ID, Nombre, Tipo y Páginas
     # Uso de los try y excepts
@@ -127,6 +128,7 @@ def agregarTrabajo(cola):
 
 
 def cambioDePrioridad(cola):
+# Procedimiento en el cual se evalua la cola de trabajos del sistema de impresión, buscando un id en especifico para modificarle la prioridad.
     print("--- Cambio de Prioridad Individual ---")
     # Se verifica que la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
     if colaVacia(cola):
@@ -163,22 +165,17 @@ def cambioDePrioridad(cola):
 
 
 def visualizacionCola(cola):
-    # Este procedimiento se encarga de visualizar todos los elementos de la cola, mostrando asi las impresiones de manera ordenada en base al id.
+# Este procedimiento se encarga de visualizar todos los elementos de la cola, mostrando asi las impresiones de manera ordenada en base al id.
     print("--- Visualización de Cola ---")
     #Verifico que la cola no este vacia, si no esta vacia, continua la ejecución.
     if colaVacia(cola):
         print("No hay trabajos pendientes de impresión. ")
         return
-    else:
-        #Crea una cola auxiliar para no perder los datos
-        colaaux = crearCola()
-        #Copia los datos de la cola (original) a la cola (auxiliar)
-        copiarCola(colaaux, cola)
     
-    cont = 1
-    while not colaVacia(colaaux):
-        #Desencolo elemento por elemento
-        t = desencolar(colaaux)
+
+    for i in range(tamaño(cola)):
+    #Desencolo elemento por elemento
+        t = desencolar(cola)
 
         #Renombramos a "e" y "n" por EXPRESS y NORMAL
         prioridad = verPrioridad(t)
@@ -191,7 +188,7 @@ def visualizacionCola(cola):
                 prioridad = "Express"
 
         #Impresión de los trabajos
-        print(f" {cont}. -Job ID: {verId(t)}")
+        print(f" {i+1}. -Job ID: {verId(t)}")
         print(f" - Formato: {verFormato(t)}")
         print(f" - Documento: {verNombre(t)}")
         print(f" - Cantidad de páginas: {verPaginas(t)}")
@@ -200,10 +197,7 @@ def visualizacionCola(cola):
         print(f" - Hora: {verHora(t):02d}:{verMinuto(t):02d}")
         print("---"*6)
 
-        cont += 1
-
-    print("------"*4)
-
+    encolar(cola, t)
 
 
 def colaALista(cola):
@@ -289,6 +283,7 @@ def genSubColaHoraria(cola):
 
 
 def cancelacionPorFormato(cola):
+# Cancela los trabajos con el formato dado.
     print(" CANCELACIÓN POR FORMATO ")
 
     if colaVacia(cola):
