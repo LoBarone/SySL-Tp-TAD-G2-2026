@@ -129,7 +129,7 @@ def agregarTrabajo(cola):
 
 def cambioDePrioridad(cola):
 # Procedimiento en el cual se evalua la cola de trabajos del sistema de impresión, buscando un id en especifico para modificarle la prioridad.
-    print("--- Cambio de Prioridad Individual ---")
+    print(" CAMBIO DE PRIORIDAD INDIVIDUAL ")
     # Se verifica que la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
     if colaVacia(cola):
         print("La cola está vacía. ")
@@ -166,7 +166,7 @@ def cambioDePrioridad(cola):
 
 def visualizacionCola(cola):
 # Este procedimiento se encarga de visualizar todos los elementos de la cola, mostrando asi las impresiones de manera ordenada en base al id.
-    print("--- Visualización de Cola ---")
+    print(" VISUALIZACIÓN DE COLA ")
     #Verifico que la cola no este vacia, si no esta vacia, continua la ejecución.
     if colaVacia(cola):
         print("No hay trabajos pendientes de impresión. ")
@@ -222,6 +222,7 @@ def listaACola(lista):
 
 def reajusteMasivoPorFecha(cola):
 # Dado un mes, actualiza la prioridad a baja a todos los trabajos del mismo.
+    print(" REAJUSTE MASIVO POR FECHA ")
     if not cola:
         print("Error: La cola esta vacia!")
         return
@@ -250,6 +251,7 @@ def reajusteMasivoPorFecha(cola):
 
 def genSubColaHoraria(cola):
 # Dada una franja horaria, genera una Sub-Cola con solo los trabajos que deben realizarse en esa franja especifica.
+    print(" GENERACION DE SUBCOLA HORARIO ")
     if not cola:
         print("Error: La cola esta vacia!")
         return
