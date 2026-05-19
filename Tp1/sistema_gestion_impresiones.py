@@ -1,13 +1,12 @@
 from tad_cola import *
 from tad_trabajo import *
 from datetime import datetime
-
+#Menú______________________________________________________
 def main():
     cola = crearCola()
     while True:
-        print("--------"*6 + "\nPrograma gestion de impresiones:\n" + "--------"*6)
+        print("--------"*6 + "\nPrograma para gestión de impresiones:\n" + "--------"*6)
         print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formato\n [ 7 ] - Filtrado por Franja Horaria\n [ 8 ] - Salir")
-        
         
         opcion = int(input("Seleccione la opción que desea utilizar: "))
 
@@ -17,7 +16,7 @@ def main():
             case 2:
                 cambioDePrioridad(cola)
             case 3:
-                pass
+                procesarImpresion(cola)
             case 4:
                 visualizacionCola(cola)
             case 5:
@@ -43,7 +42,7 @@ def main():
             case _:
                 print("Error: La opción que usted seleccionó es invalida. ")
 
-
+#Funciones___________________________________________________________________
 
 def agregarTrabajo(cola):
 # Agrega un trabajo a la cola
@@ -163,6 +162,24 @@ def cambioDePrioridad(cola):
     if not idEncontrado:
         print(f"No se encontró ningún trabajo con el ID {idABuscar}. ")
 
+def procesarImpresion(cola):
+    # Función que retira de la cola el primero en ingresar, imprime mensaje simulando que la impresora procesa el trabajo. 
+    # Si la cola está vacía, muestra un mensaje indicando que no hay trabajos pendientes.
+    print("╔════════════════════════════════════════╗")
+    print("║--- Inicio del Proceso de Impresión --- ║")
+    print("╚════════════════════════════════════════╝")
+    if colaVacia(cola):
+        print("No hay trabajos pendientes en la cola de impresión.")
+        return
+    else:
+        trabajo = desencolar(cola)
+        print("┌──────────────────────────────────────────┐")
+        print(f"│Documento: {verNombre(trabajo)}")
+        print(f"│Formato: {verFormato(trabajo)}          ")
+        print(f"│Cantidad de páginas: {verPaginas(trabajo)}")
+        print("└──────────────────────────────────────────┘")
+        print("Impresión en proceso...")
+
 
 def visualizacionCola(cola):
 # Este procedimiento se encarga de visualizar todos los elementos de la cola, mostrando asi las impresiones de manera ordenada en base al id.
@@ -171,7 +188,6 @@ def visualizacionCola(cola):
     if colaVacia(cola):
         print("No hay trabajos pendientes de impresión. ")
         return
-    
 
     for i in range(tamaño(cola)):
     #Desencolo elemento por elemento
@@ -208,8 +224,6 @@ def colaALista(cola):
 
     return lista
 
-
-
 def listaACola(lista):
 # Convierte una lista a una cola.
     cola = crearCola()
@@ -218,15 +232,12 @@ def listaACola(lista):
 
     return cola
 
-
-
 def reajusteMasivoPorFecha(cola):
 # Dado un mes, actualiza la prioridad a baja a todos los trabajos del mismo.
     print(" REAJUSTE MASIVO POR FECHA ")
     if not cola:
         print("Error: La cola esta vacia!")
         return
-        
 
     while True:
         try:
@@ -234,7 +245,6 @@ def reajusteMasivoPorFecha(cola):
             if not (12 >= mesDado >= 1):
                 print("Ingrese un mes valido")
                 continue
-
             break
         except ValueError:
             print("Ingrese un valor valido")
@@ -244,9 +254,7 @@ def reajusteMasivoPorFecha(cola):
         if verMes(trabajo) == mesDado:
             modPrioridad(trabajo, "b")
 
-    
     copiarCola(cola, listaACola(trabajos))
-
 
 
 def genSubColaHoraria(cola):
@@ -255,7 +263,7 @@ def genSubColaHoraria(cola):
     if not cola:
         print("Error: La cola esta vacia!")
         return
-    
+
     # Creo sub-cola
     subcola = crearCola()
 
@@ -268,7 +276,6 @@ def genSubColaHoraria(cola):
             if(ini > fin): # Veo que sea una franja valida
                 print("Ingresa un horario valido!")
                 continue
-
             break
         except ValueError:
             print("Ingresá un horario valido!")
@@ -281,7 +288,6 @@ def genSubColaHoraria(cola):
         encolar(cola, t)
 
     return subcola
-
 
 
 def cancelacionPorFormato(cola):
