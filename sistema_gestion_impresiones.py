@@ -1,13 +1,19 @@
 from tad_cola import *
 from tad_trabajo import *
 from datetime import datetime
-#Menú______________________________________________________
+
 def main():
     cola = crearCola()
-    while True:
-        print("--------"*6 + "\nPrograma para gestión de impresiones:\n" + "--------"*6)
-        print("\n [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formato\n [ 7 ] - Filtrado por Franja Horaria\n [ 8 ] - Salir")
-        
+    while True: 
+    # Menu
+        print("╔═════════════════════════════════════════╗")
+        print("║ --- Sistema de Gestión de Impresión --- ║")
+        print("╚═════════════════════════════════════════╝")
+
+        print("┌──────────────────────────────────────────┐")
+        print(" [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formato\n [ 7 ] - Filtrado por Franja Horaria\n [ 8 ] - Salir")
+        print("└──────────────────────────────────────────┘")
+
         opcion = int(input("Seleccione la opción que desea utilizar: "))
 
         match opcion:
@@ -31,23 +37,17 @@ def main():
             case 8:
                 print("Fin del programa!")
                 break
-            case 9:
-            # Lo agrego para debug trabajo, id, nombre, formato, paginas, prioridad, año, mes, dia, hora, minuto
-                t1 = [1, "juan", "pdf", 1, "e", date(1, 1, 1), time(00, 00)]
-                t2 = [1, "jorge", "algo", 1, "n", date(1, 1, 1), time(10, 00)]
-                t3 = [1, "qsy", "pdf", 1, "b", date(1, 1, 1), time(00, 00)]
-                cola.append(t1)
-                cola.append(t2)
-                cola.append(t3)
             case _:
                 print("Error: La opción que usted seleccionó es invalida. ")
 
-#Funciones___________________________________________________________________
+
 
 def agregarTrabajo(cola):
 # Agrega un trabajo a la cola
-    print(" RECEPCIÓN DE DOCUMENTOS ")
-    # Validación de ID, Nombre, Tipo y Páginas
+    print("╔═════════════════════════════════════════╗")
+    print("║ ----------- Agregar Trabajo ----------- ║")
+    print("╚═════════════════════════════════════════╝")   
+    #Validación de ID, Nombre, Tipo y Páginas
     # Uso de los try y excepts
     try:
         jobId = int(input("Ingrese el ID (0 para cancelar): "))
@@ -79,6 +79,7 @@ def agregarTrabajo(cola):
     except ValueError:
         print("Error: La cantidad de páginas debe ser un número entero.")
         return
+
     # Validación de Prioridad 
     nivel = input("Prioridad [ b ]-Básica | [ n ]-Normal | [ e ]-Express: ").lower()
     if nivel not in ["b", "n", "e"]:
@@ -128,7 +129,10 @@ def agregarTrabajo(cola):
 
 def cambioDePrioridad(cola):
 # Procedimiento en el cual se evalua la cola de trabajos del sistema de impresión, buscando un id en especifico para modificarle la prioridad.
-    print(" CAMBIO DE PRIORIDAD INDIVIDUAL ")
+    print("╔════════════════════════════════════════╗")
+    print("║ --- Cambio de Prioridad Individual --- ║")
+    print("╚════════════════════════════════════════╝")   
+    
     # Se verifica que la cola este vacía. Si lo está, muestra un mensaje y retorna al menú principal.
     if colaVacia(cola):
         print("La cola está vacía. ")
@@ -183,7 +187,9 @@ def procesarImpresion(cola):
 
 def visualizacionCola(cola):
 # Este procedimiento se encarga de visualizar todos los elementos de la cola, mostrando asi las impresiones de manera ordenada en base al id.
-    print(" VISUALIZACIÓN DE COLA ")
+    print("╔════════════════════════════════════════════╗")
+    print("║ ---------- Visualización de Cola --------- ║")
+    print("╚════════════════════════════════════════════╝")   
     #Verifico que la cola no este vacia, si no esta vacia, continua la ejecución.
     if colaVacia(cola):
         print("No hay trabajos pendientes de impresión. ")
@@ -234,7 +240,9 @@ def listaACola(lista):
 
 def reajusteMasivoPorFecha(cola):
 # Dado un mes, actualiza la prioridad a baja a todos los trabajos del mismo.
-    print(" REAJUSTE MASIVO POR FECHA ")
+    print("╔═══════════════════════════════════╗")
+    print("║ --- Reajuste Masivo por Fecha --- ║")
+    print("╚═══════════════════════════════════╝")
     if not cola:
         print("Error: La cola esta vacia!")
         return
@@ -259,7 +267,9 @@ def reajusteMasivoPorFecha(cola):
 
 def genSubColaHoraria(cola):
 # Dada una franja horaria, genera una Sub-Cola con solo los trabajos que deben realizarse en esa franja especifica.
-    print(" GENERACION DE SUBCOLA HORARIO ")
+    print("╔════════════════════════════════════════╗")
+    print("║ --- Generación de Sub-Cola Horaria --- ║")
+    print("╚════════════════════════════════════════╝")
     if not cola:
         print("Error: La cola esta vacia!")
         return
@@ -292,7 +302,9 @@ def genSubColaHoraria(cola):
 
 def cancelacionPorFormato(cola):
 # Cancela los trabajos con el formato dado.
-    print(" CANCELACIÓN POR FORMATO ")
+    print("╔═══════════════════════════════════════╗")
+    print("║ ------ Cancelación por Formato ------ ║")
+    print("╚═══════════════════════════════════════╝")
 
     if colaVacia(cola):
         print("La cola está vacía. No hay trabajos para cancelar")
