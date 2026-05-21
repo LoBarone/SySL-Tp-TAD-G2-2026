@@ -32,11 +32,20 @@ def main():
                 pass
             case 7:
                 subcola = genSubColaHoraria(cola)
-                visualizacionCola(subcola)
+                if colaVacia(subcola):
+                    visualizacionCola(subcola)
                 pass
             case 8:
                 print("Fin del programa!")
                 break
+            case 9:
+            # Lo agrego para debug
+                t1 = [1, "juan", "pdf", 1, "e", date(1, 1, 1), time(00, 00)]
+                t2 = [1, "jorge", "algo", 1, "n", date(1, 1, 1), time(10, 00)]
+                t3 = [1, "qsy", "pdf", 1, "b", date(1, 1, 1), time(00, 00)]
+                cola.append(t1)
+                cola.append(t2)
+                cola.append(t3)
             case _:
                 print("Error: La opción que usted seleccionó es invalida. ")
 
@@ -49,17 +58,7 @@ def agregarTrabajo(cola):
     print("╚═════════════════════════════════════════╝")   
     #Validación de ID, Nombre, Tipo y Páginas
     # Uso de los try y excepts
-    try:
-        jobId = int(input("Ingrese el ID (0 para cancelar): "))
-        if jobId == 0:
-            print("Operación cancelada por el usuario.")
-            return
-        if jobId < 0:
-            print("Error")
-            return
-    except ValueError:
-        print("Error: El ID debe ser un número entero.")
-        return
+    jobID = cargarId()
     
     nombDocu = input("Ingrese el Nombre del documento: ")
     if not nombDocu:
@@ -71,25 +70,25 @@ def agregarTrabajo(cola):
         print("Error: El tipo de formato no puede estar vacío.")
         return
 
-    try:
-        cantPag = int(input("Ingrese la cantidad de Páginas: "))
-        if cantPag <= 0:
-            print("Error: La cantidad de páginas debe ser mayor a 0.")
-            return
-    except ValueError:
-        print("Error: La cantidad de páginas debe ser un número entero.")
-        return
+    # Pide paginas hasta conseguir un valor valido.
+    while True:
+        try:
+            cantPag = int(input("Ingrese la cantidad de Páginas: "))
+            if cantPag <= 0:
+                print("Error: La cantidad de páginas debe ser mayor a 0.")
+                continue
+            break
+        except ValueError:
+            print("Error: La cantidad de páginas debe ser un número entero.")
 
     # Validación de Prioridad 
-    nivel = input("Prioridad [ b ]-Básica | [ n ]-Normal | [ e ]-Express: ").lower()
-    if nivel not in ["b", "n", "e"]:
-        print("Error: Tipo de prioridad inválido.")
-        return
+    prioridad = cargarPrioridad()
+    
     while True:
         try:
             fecha = input("Ingrese fecha de envío (DD/MM/AAAA): ")
             # strptime valida bisiestos y días máximos automáticamente 
-            fecha_valida = date.strptime(fecha, "%d/%m/%Y").date()
+            fecha_valida = datetime.strptime(fecha, "%d/%m/%Y").date()
             # Validación de negocio , es para no permitir fechas invalidad , es decir anterior a la actual
             if fecha_valida < date.today():
                 print("Inválido: La fecha no puede ser anterior a hoy.")
@@ -102,10 +101,12 @@ def agregarTrabajo(cola):
         try:
             h = input("Ingrese hora de envío (HH:MM): ")
             # Valida que los rangos sean de 00:00 a 23:59
-            hora_valida = date.strptime(h, "%H:%M").time()
+            hora_valida = datetime.strptime(h, "%H:%M").time()
             break
         except ValueError:
             print("Error: Hora inválida o formato incorrecto (HH:MM).")
+
+    
     # Separarlos 
     año = fecha_valida.year
     mes = fecha_valida.month
@@ -116,7 +117,7 @@ def agregarTrabajo(cola):
     # Instanciación, Carga y Encolado , ya paso todos los filtros con los try/excepts
     try:
         t = crearTrabajo()
-        cargarTrabajo(t, jobId, nombDocu, tipo, cantPag, nivel, año, mes, dia, hora, minuto)
+        cargarTrabajo(t, jobID, nombDocu, tipo, cantPag, prioridad, año, mes, dia, hora, minuto)
         encolar(cola, t)
         
         print(f"Trabajo Agregado")
@@ -128,7 +129,7 @@ def agregarTrabajo(cola):
 
 
 def cambioDePrioridad(cola):
-# Procedimiento en el cual se evalua la cola de trabajos del sistema de impresión, buscando un id en especifico para modificarle la prioridad.
+# Modifica la prioridad de un trabajo en la cola, en caso de encontrarlo en la misma.
     print("╔════════════════════════════════════════╗")
     print("║ --- Cambio de Prioridad Individual --- ║")
     print("╚════════════════════════════════════════╝")   
@@ -139,7 +140,7 @@ def cambioDePrioridad(cola):
         return
     
     #Se asignan datos para recorrer la cola, y se asignan una variable para el tamaño de la cola.
-    idABuscar = int(input("Ingrese el ID de Trabajo que desea modificar: "))
+    idABuscar = cargarId()
     idEncontrado = False
     cantElementos = tamaño(cola)
 
@@ -150,7 +151,7 @@ def cambioDePrioridad(cola):
 
         #Si el ID es encontrado, se le asigna una nueva prioridad, y se modifica el trabajo.
         if verId(t) == idABuscar :
-            nuevaPrioridad = input("Ingrese la nueva prioridad que desea modificar (n: Normal / e: Express / b: Baja)").lower()
+            nuevaPrioridad = cargarPrioridad()
 
             if nuevaPrioridad in ["n", "e", "b"]:
                 modPrioridad(t, nuevaPrioridad)
@@ -187,9 +188,9 @@ def procesarImpresion(cola):
 
 def visualizacionCola(cola):
 # Este procedimiento se encarga de visualizar todos los elementos de la cola, mostrando asi las impresiones de manera ordenada en base al id.
-    print("╔════════════════════════════════════════════╗")
-    print("║ ---------- Visualización de Cola --------- ║")
-    print("╚════════════════════════════════════════════╝")   
+    print("╔═════════════════════════════════════════════╗")
+    print("║ ---------- Visualización de Cola ---------- ║")
+    print("╚═════════════════════════════════════════════╝")   
     #Verifico que la cola no este vacia, si no esta vacia, continua la ejecución.
     if colaVacia(cola):
         print("No hay trabajos pendientes de impresión. ")
@@ -210,6 +211,8 @@ def visualizacionCola(cola):
                 prioridad = "Express"
 
         #Impresión de los trabajos
+
+        print("┌──────────────────────────────────────────┐")
         print(f" {i+1}. -Job ID: {verId(t)}")
         print(f" - Formato: {verFormato(t)}")
         print(f" - Documento: {verNombre(t)}")
@@ -217,33 +220,19 @@ def visualizacionCola(cola):
         print(f" - Prioridad: {prioridad}")
         print(f" - Fecha: {verDia(t):02d}/{verMes(t):02d}/{verAño(t):02d}")
         print(f" - Hora: {verHora(t):02d}:{verMinuto(t):02d}")
-        print("---"*6)
-
-    encolar(cola, t)
+        print("└──────────────────────────────────────────┘")
 
 
-def colaALista(cola):
-# Convierte una cola a una lista. Elimina la cola
-    lista = []
-    while not colaVacia(cola):
-        lista.append(desencolar(cola))
+        encolar(cola, t)
 
-    return lista
 
-def listaACola(lista):
-# Convierte una lista a una cola.
-    cola = crearCola()
-    for trabajo in lista:
-        encolar(cola, trabajo)
-
-    return cola
 
 def reajusteMasivoPorFecha(cola):
 # Dado un mes, actualiza la prioridad a baja a todos los trabajos del mismo.
     print("╔═══════════════════════════════════╗")
     print("║ --- Reajuste Masivo por Fecha --- ║")
     print("╚═══════════════════════════════════╝")
-    if not cola:
+    if colaVacia(cola):
         print("Error: La cola esta vacia!")
         return
 
@@ -256,13 +245,14 @@ def reajusteMasivoPorFecha(cola):
             break
         except ValueError:
             print("Ingrese un valor valido")
-    
-    trabajos = colaALista(cola)
-    for trabajo in trabajos:
-        if verMes(trabajo) == mesDado:
-            modPrioridad(trabajo, "b")
 
-    copiarCola(cola, listaACola(trabajos))
+    for i in range(tamaño(cola)):
+        t = desencolar(cola)
+        if verMes(t) == mesDado:
+            modPrioridad(t, "b")
+                
+        encolar(cola, t)
+
 
 
 def genSubColaHoraria(cola):
@@ -270,7 +260,7 @@ def genSubColaHoraria(cola):
     print("╔════════════════════════════════════════╗")
     print("║ --- Generación de Sub-Cola Horaria --- ║")
     print("╚════════════════════════════════════════╝")
-    if not cola:
+    if colaVacia(cola):
         print("Error: La cola esta vacia!")
         return
 
@@ -283,10 +273,11 @@ def genSubColaHoraria(cola):
             ini = datetime.strptime(input("Ingrese el inicio de la franja horaria (formato HH:MM): "), "%H:%M").time()
             fin = datetime.strptime(input("Ingrese el final de la franja horaria (formato HH:MM): "), "%H:%M").time()
 
-            if(ini > fin): # Veo que sea una franja valida
+            if ini > fin: # Veo que sea una franja valida
                 print("Ingresa un horario valido!")
                 continue
             break
+
         except ValueError:
             print("Ingresá un horario valido!")
 
@@ -342,6 +333,31 @@ def cancelacionPorFormato(cola):
     else:
         print(f" No se encontraron trabajos con el formato '{formato_a_eliminar}' en la cola.")
         
+
+
+def cargarId():
+# Carga el jobID con las validaciones correspondientes.
+    while True:
+        try:
+            jobID = int(input("Ingrese el ID del trabajo: "))
+            if jobID <= 0:
+                print("Error: El ID debe ser un número entero positivo.")
+                continue
+
+            return jobID
+        except ValueError:
+            print("Error: El ID debe ser un número entero.")
+
+
+
+def cargarPrioridad():
+# Carga la prioridad con las validaciones correspondientes.
+    while True:
+        prioridad = input("Ingrese la prioridad (b: Básica, n: Normal, e: Express): ").lower()
+        if prioridad in ["b", "n", "e"]:
+            return prioridad
+        else:
+            print("Error: Prioridad no válida. Ingrese 'b', 'n' o 'e'.") 
 
 
 
