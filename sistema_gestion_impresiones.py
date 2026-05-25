@@ -36,7 +36,7 @@ def main():
                     visualizacionCola(subcola)
                 pass
             case 8:
-                print("Fin del programa!")
+                print("¡Fin del programa!")
                 break
             case 9:
             # Lo agrego para debug
@@ -238,7 +238,7 @@ def reajusteMasivoPorFecha(cola):
 
     while True:
         try:
-            mesDado = int(input("Ingrese el mes para el que desea bajar la prioridad: "))
+            mesDado = int(input("Ingrese el mes (MM) para el que desea bajar la prioridad: "))
             if not (12 >= mesDado >= 1):
                 print("Ingrese un mes valido")
                 continue
