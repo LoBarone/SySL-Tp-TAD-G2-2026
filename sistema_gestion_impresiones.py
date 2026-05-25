@@ -38,14 +38,6 @@ def main():
             case 8:
                 print("¡Fin del programa!")
                 break
-            case 9:
-            # Lo agrego para debug
-                t1 = [1, "juan", "pdf", 1, "e", date(1, 1, 1), time(00, 00)]
-                t2 = [1, "jorge", "algo", 1, "n", date(1, 1, 1), time(10, 00)]
-                t3 = [1, "qsy", "pdf", 1, "b", date(1, 1, 1), time(00, 00)]
-                cola.append(t1)
-                cola.append(t2)
-                cola.append(t3)
             case _:
                 print("Error: La opción que usted seleccionó es invalida. ")
 
