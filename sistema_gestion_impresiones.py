@@ -4,6 +4,7 @@ from datetime import datetime
 
 def main():
     cola = crearCola()
+    precargar(cola)
     while True: 
     # Menu
         print("╔═════════════════════════════════════════╗")
@@ -50,7 +51,7 @@ def agregarTrabajo(cola):
     print("╚═════════════════════════════════════════╝")   
     #Validación de ID, Nombre, Tipo y Páginas
     # Uso de los try y excepts
-    jobID = cargarId()
+    jobID = cargarId(cola)
     
     nombDocu = input("Ingrese el Nombre del documento: ")
     if not nombDocu:
@@ -132,7 +133,7 @@ def cambioDePrioridad(cola):
         return
     
     #Se asignan datos para recorrer la cola, y se asignan una variable para el tamaño de la cola.
-    idABuscar = cargarId()
+    idABuscar = cargarIdNuevo()
     idEncontrado = False
     cantElementos = tamaño(cola)
 
@@ -326,7 +327,23 @@ def cancelacionPorFormato(cola):
         
 
 
-def cargarId():
+def cargarId(cola):
+# Carga el jobID en base al ultimo ID cargado en la cola. Si no hay una cola cargada retorna 1
+    if colaVacia(cola):
+        return 1
+    else:
+        # Para cargar el ID, se recorre la cola buscando el ID más alto, y se retorna ese ID + 1.
+        max_id = 0
+        for i in range(tamaño(cola)):
+            t = desencolar(cola)
+            if verId(t) > max_id:
+                max_id = verId(t)
+            encolar(cola, t)
+        return max_id + 1
+
+
+
+def cargarIdNuevo():
 # Carga el jobID con las validaciones correspondientes.
     while True:
         try:
@@ -349,6 +366,26 @@ def cargarPrioridad():
             return prioridad
         else:
             print("Error: Prioridad no válida. Ingrese 'b', 'n' o 'e'.") 
+
+
+
+def precargar(cola):
+# Realiza la precarga de 4 trabajos a la cola. cargarTrabajo(trabajo, id, nombre, formato, paginas, prioridad, año, mes, dia, hora, minuto)
+    t1 = crearTrabajo()
+    cargarTrabajo(t1, 1, "PresentacionSintaxis", "PDF", 10, "n", 2026, 6, 15, 14, 30)
+    encolar(cola, t1)
+
+    t2 = crearTrabajo()
+    cargarTrabajo(t2, 2, "InformeSemana", "PDF", 10, "e", 2026, 6, 16, 14, 43)
+    encolar(cola, t2)
+
+    t3 = crearTrabajo()
+    cargarTrabajo(t3, 3, "FotoVacaciones", "JPG", 1, "b", 2026, 6, 15, 20, 00)
+    encolar(cola, t3)
+
+    t4 = crearTrabajo()
+    cargarTrabajo(t4, 4, "FiguritasMundial", "XLSX", 15, "n", 2026, 7, 15, 18, 59)
+    encolar(cola, t4)
 
 
 
