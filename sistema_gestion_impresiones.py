@@ -6,42 +6,40 @@ def main():
     cola = crearCola()
     precargar(cola)
     while True: 
-    # Menu
-        print("╔═════════════════════════════════════════╗")
-        print("║ --- Sistema de Gestión de Impresión --- ║")
-        print("╚═════════════════════════════════════════╝")
-
-        print("┌──────────────────────────────────────────┐")
-        print(" [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formato\n [ 7 ] - Filtrado por Franja Horaria\n [ 8 ] - Salir")
-        print("└──────────────────────────────────────────┘")
-
-        opcion = int(input("Seleccione la opción que desea utilizar: "))
-
-        match opcion:
-            case 1:
-                agregarTrabajo(cola)
-            case 2:
-                cambioDePrioridad(cola)
-            case 3:
-                procesarImpresion(cola)
-            case 4:
-                visualizacionCola(cola)
-            case 5:
-                reajusteMasivoPorFecha(cola)
-            case 6:
-                cancelacionPorFormato(cola)
-                pass
-            case 7:
-                subcola = genSubColaHoraria(cola)
-                if not colaVacia(subcola):
-                    visualizacionCola(subcola)
-                pass
-            case 8:
-                print("¡Fin del programa!")
-                break
-            case _:
-                print("Error: La opción que usted seleccionó es invalida. ")
-
+        try:
+            print("╔═════════════════════════════════════════╗")
+            print("║ --- Sistema de Gestión de Impresión --- ║")
+            print("╚═════════════════════════════════════════╝")
+            print("┌──────────────────────────────────────────┐")
+            print(" [ 1 ] - Recepción de Documentos.\n [ 2 ] - Cambio de Prioridad Individual.\n [ 3 ] - Procesar Impresión.\n [ 4 ] - Visualización de la Cola de Impresión.\n [ 5 ] - Reajuste masivo por Fecha.\n [ 6 ] - Filtrado por Formato\n [ 7 ] - Filtrado por Franja Horaria\n [ 8 ] - Salir")
+            print("└──────────────────────────────────────────┘")
+            opcion = int(input("Seleccione la opción que desea utilizar: "))
+            match opcion:
+                case 1:
+                    agregarTrabajo(cola)
+                case 2:
+                    cambioDePrioridad(cola)
+                case 3:
+                    procesarImpresion(cola)
+                case 4:
+                    visualizacionCola(cola)
+                case 5:
+                    reajusteMasivoPorFecha(cola)
+                case 6:
+                    cancelacionPorFormato(cola)
+                    pass
+                case 7:
+                    subcola = genSubColaHoraria(cola)
+                    if not colaVacia(subcola):
+                        visualizacionCola(subcola)
+                    pass
+                case 8:
+                    print("¡Fin del programa!")
+                    break
+                case _:
+                    print("Error: La opción que usted seleccionó es invalida. ")
+        except:
+            print("Error: La opción que usted seleccionó es invalida.")
 
 
 def agregarTrabajo(cola):
@@ -108,6 +106,7 @@ def agregarTrabajo(cola):
     hora = hora_valida.hour
     minuto = hora_valida.minute
     # Instanciación, Carga y Encolado , ya paso todos los filtros con los try/excepts
+    tipo = tipo.upper()
     try:
         t = crearTrabajo()
         cargarTrabajo(t, jobID, nombDocu, tipo, cantPag, prioridad, año, mes, dia, hora, minuto)
