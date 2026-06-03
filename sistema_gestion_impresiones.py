@@ -32,7 +32,7 @@ def main():
                 pass
             case 7:
                 subcola = genSubColaHoraria(cola)
-                if colaVacia(subcola):
+                if not colaVacia(subcola):
                     visualizacionCola(subcola)
                 pass
             case 8:
@@ -249,15 +249,14 @@ def reajusteMasivoPorFecha(cola):
 
 def genSubColaHoraria(cola):
 # Dada una franja horaria, genera una Sub-Cola con solo los trabajos que deben realizarse en esa franja especifica.
+    subcola = crearCola() # Creo sub-cola
     print("╔════════════════════════════════════════╗")
     print("║ --- Generación de Sub-Cola Horaria --- ║")
     print("╚════════════════════════════════════════╝")
     if colaVacia(cola):
         print("Error: La cola esta vacia!")
-        return
+        return subcola # Retorna cola vacía
 
-    # Creo sub-cola
-    subcola = crearCola()
 
     # Cargo franja horaria
     while True:
